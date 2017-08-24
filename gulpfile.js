@@ -1,6 +1,6 @@
 // my Config
 var config = {
-  "baseDir": "./docs",
+  "baseDir": "./",
   "default": {
     "server": "static"
   },
