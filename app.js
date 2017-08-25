@@ -1,25 +1,26 @@
 "use strict";
 
+var requestURL = "https://talaikis.com/api/quotes/random/";
+
 var dom = {
   id: function(id) {
     return document.getElementById(id);
   }
 };
 
-function makeRequest() {
-  var requestURL = "https://talaikis.com/api/quotes/random/";
+function getRequest(url, functionName) {
   var request = new XMLHttpRequest();
   request.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        randomMachine(this.response);
+      functionName(this.response);
     }
   };
-  request.open('GET', requestURL);
+  request.open('GET', url);
   request.responseType = 'json';
   request.send();
-};
+}
 
-var randomMachine = function (objectQuote) {
+function randomMachine(objectQuote) {
   dom.id("quote_message").innerText = objectQuote.quote;
   dom.id("author_name").innerText = objectQuote.author;
   var twitterUrl = 'https://twitter.com/intent/tweet?text="'
@@ -27,7 +28,11 @@ var randomMachine = function (objectQuote) {
   dom.id("twitter").href = twitterUrl;
 };
 
+var getRequestFunction = function() {
+  getRequest(requestURL, randomMachine);
+}
+
 window.onload = function () {
-  makeRequest();
-  dom.id("new_quote").onclick = makeRequest;
+  getRequestFunction();
+  dom.id("new_quote").onclick = getRequestFunction;
 }
