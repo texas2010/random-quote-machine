@@ -8,8 +8,7 @@
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
-  <link rel="stylesheet" href="styles/main.css">
-  <title>freeCodeCamp Random Quote Machine</title>
+  <title>Random Quote Machine</title>
 </head>
 
 <body class="blue lighten-1">
@@ -18,7 +17,10 @@
       <div class="col m2"></div>
       <div class="col s12 m8" id="quote-box">
         <div class="card small grey lighten-2">
-          <div class="card-content blue-text">
+          <div class="loadingBox">
+            <div class="loadingSpinner showSpinner" id="loadingSpinner"></div>
+          </div>
+          <div class="card-content blue-text" id="messageBox">
             <span class="card-title">Author: <span id="author"></span></span>
             <p>
               <i class="material-icons">format_quote</i>
@@ -36,7 +38,6 @@
     </div>
   </div>
   <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
-  <script src="scripts/bundle.js"></script>
 </body>
 
 </html>

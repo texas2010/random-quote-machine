@@ -1,0 +1,20 @@
+#quote-box {
+  margin-top: 100px;
+}
+
+.center {
+  margin: auto;
+  display: block;
+  margin-top: 50px;
+}
+
+.loadingBox:not(.showSpinner) {
+  padding-top: 20px;
+}
+.loadingSpinner.showSpinner {
+  margin: 0px auto;
+}
+
+.hidden {
+  display: none;
+}

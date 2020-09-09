@@ -1,27 +1,58 @@
+const myPublicPath = 'docs'
+
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: ['babel-polyfill', './src/index.js'],
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'docs/scripts'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, myPublicPath),
+    filename: 'js/bundle.js'
   },
   module: {
-    rules: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['env'],
-          plugins: ['transform-object-rest-spread']
-        }
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: { loader: "babel-loader" }
+      },
+      {
+        test: /\.html$/,
+        use: [
+          { loader: "html-loader" }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
       }
-    }]
+    ]
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "src", "index.html")
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    })
+  ],
   devServer: {
-    contentBase: path.resolve(__dirname, 'docs'),
-    publicPath: '/scripts/'
+    contentBase: './' + myPublicPath
   },
-  devtool: 'source-map'
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    },
+  }
 }
