@@ -1,9 +1,9 @@
 const getJSON = async (url) => {
-  const response = await fetch(url)
-  if (response.status === 200) {
+  try {
+    const response = await fetch(url)
     return await response.json()
-  } else {
-    throw new Error('Unable to get data')
+  } catch (error) {
+    throw new Error('Unable to get data: ', error)
   }
 }
 
